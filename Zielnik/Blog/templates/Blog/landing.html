@@ -1,0 +1,40 @@
+{% extends "Blog/base.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <h1>Witamy w Zielniku</h1>
+        <p>Wybierz miejsce, do ktorego chcesz przejsc:</p>
+        <div id="landingCarousel" class="carousel slide landing-carousel mt-3" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#landingCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#landingCarousel" data-slide-to="1"></li>
+                <li data-target="#landingCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="{% url 'blog-home' %}">
+                        <img class="d-block w-100" src="/media/blog.png" alt="Blog">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="{% url 'shop' %}">
+                        <img class="d-block w-100" src="/media/sklep.png" alt="Sklep">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="{% url 'about' %}">
+                        <img class="d-block w-100" src="/media/About.png" alt="About">
+                    </a>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#landingCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#landingCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,86 @@
+{% extends "Blog/base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="content-section">
+                <img class="shop-hero" src="/media/sklep.png" alt="Sklep">
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <div class="content-section">
+                <h3>Filtry</h3>
+                <form method="get">
+                    <div class="form-group">
+                        <label for="q">Szukaj</label>
+                        <input id="q" name="q" class="form-control" type="text" value="{{ filters.q }}" placeholder="np. mieta, relaks">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Kategoria</label>
+                        <select id="category" name="category" class="form-control">
+                            <option value="">Wszystkie</option>
+                            {% for cat in categories %}
+                                <option value="{{ cat }}" {% if filters.category == cat %}selected{% endif %}>{{ cat }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="benefit">Wlasciwosc</label>
+                        <select id="benefit" name="benefit" class="form-control">
+                            <option value="">Dowolna</option>
+                            {% for b in benefits %}
+                                <option value="{{ b }}" {% if filters.benefit == b %}selected{% endif %}>{{ b }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="caffeine">Kofeina</label>
+                        <select id="caffeine" name="caffeine" class="form-control">
+                            <option value="">Dowolnie</option>
+                            <option value="free" {% if filters.caffeine == 'free' %}selected{% endif %}>Bez kofeiny</option>
+                            <option value="contains" {% if filters.caffeine == 'contains' %}selected{% endif %}>Z kofeina</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_price">Cena max</label>
+                        <input id="max_price" name="max_price" class="form-control" type="text" value="{{ filters.max_price }}" placeholder="20.00">
+                    </div>
+                    <button class="btn btn-outline-info mr-2" type="submit">Filtruj</button>
+                    <a class="btn btn-outline-info" href="{% url 'shop' %}">Wyczysc</a>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8 col-lg-9">
+            <div class="content-section">
+                <h1>Sklep z herbatami ziolowymi</h1>
+                <p>Wybierz filtr i znajdz herbate dla siebie.</p>
+            </div>
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="content-section h-100">
+                            <a href="{% url 'tea-detail' product.pk %}">
+                                <img class="product-image mb-3" src="{{ product.image_url }}" alt="{{ product.name }}">
+                            </a>
+                            <h4><a class="article-title" href="{% url 'tea-detail' product.pk %}">{{ product.name }}</a></h4>
+                            <p class="text-muted">{{ product.category }}{% if not product.caffeine_free %} · Z kofeina{% else %} · Bez kofeiny{% endif %}</p>
+                            <p>{{ product.description }}</p>
+                            <div class="mb-2">
+                                {% for tag in product.benefits_list %}
+                                    <span class="badge badge-light">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            <strong>{{ product.price }} zl</strong>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="content-section">
+                            <p>Brak wynikow. Zmien filtry i sproboj ponownie.</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

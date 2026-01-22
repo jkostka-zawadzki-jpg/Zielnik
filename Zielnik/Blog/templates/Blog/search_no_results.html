@@ -1,0 +1,15 @@
+{% extends "Blog/base.html" %}
+
+{% block content %}
+    <div class="content-section search-no-results">
+        <h2>Nie znaleziono wynikow</h2>
+        <p>
+            {% if scope == 'shop' %}
+                Nie znaleziono herbaty dla: <strong>{{ query }}</strong>
+            {% else %}
+                Nie znaleziono uzytkownika: <strong>{{ query }}</strong>
+            {% endif %}
+        </p>
+        <a class="btn btn-outline-info" href="{% url 'site-home' %}">Wroc na strone glowna</a>
+    </div>
+{% endblock content %}

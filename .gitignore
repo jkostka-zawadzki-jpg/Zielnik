@@ -1,0 +1,16 @@
+.DS_Store
+.env
+.venv/
+env/
+venv/
+vzaliczenie/
+
+__pycache__/
+*.py[cod]
+
+db.sqlite3
+*.sqlite3
+*.log
+
+staticfiles/
+media/
